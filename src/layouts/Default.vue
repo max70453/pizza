@@ -1,14 +1,5 @@
 <template>
   <div class="layout">
-    <!-- <header class="header"> -->
-      <!-- <strong>
-        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
-      </strong> -->
-      <!-- <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about/">About</g-link>
-      </nav> -->
-    <!-- </header> -->
     <transition name="fade" appear>
         <main>
           <slot />
@@ -45,10 +36,13 @@ query {
    margin:0;
    padding:0;
    line-height: 1.5;
+   color: #fff;
    background: linear-gradient(223deg, #1E0C00 0%, #1F0700 31.43%, #170A00 69.37%, #1E0D00 100%);
  }
  *{
    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
  }
  a{
    text-decoration: none;
@@ -61,15 +55,4 @@ query {
    padding-right: 20px;
  }
 
-/* .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  height: 80px;
-} */
-
-/* .nav__link {
-  margin-left: 20px;
-} */
 </style>
