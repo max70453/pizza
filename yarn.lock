@@ -3139,7 +3139,7 @@ debug@^3.2.7:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.1.0, debug@^4.1.1:
+debug@^4.1.0, debug@^4.1.1, debug@^4.2.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -4567,6 +4567,13 @@ graphql@^14.4.2:
   dependencies:
     iterall "^1.2.2"
 
+gridsome-plugin-modal@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/gridsome-plugin-modal/-/gridsome-plugin-modal-0.1.1.tgz#69f718566bf9bd08621bd29c01838847a317302b"
+  integrity sha512-2L8ARFcbUFk5OTPpZgrxcBkTcvR5m2PjiPkF3lgRiajttcjbMrXYSemeZRztAjw3cOtCTvr+kyGpcBE6M4CSVA==
+  dependencies:
+    vue-js-modal "^1.3.28"
+
 gridsome-plugin-pug@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/gridsome-plugin-pug/-/gridsome-plugin-pug-0.0.3.tgz#05ec2e2ada681ba385eab41169eb3adddcd06c7d"
@@ -4581,6 +4588,14 @@ gridsome-plugin-sass-resources-loader@^0.0.3:
   integrity sha512-Zt5lHJZQy4Z3KVvcJuExhO3aGadYbhn8yftWGTd/+5uXaYaLm5JC+KihumBlleyDX+/4hWYfE/QWeJNIbhxgyw==
   dependencies:
     sass-resources-loader "^2.0.0"
+
+gridsome-plugin-seo@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/gridsome-plugin-seo/-/gridsome-plugin-seo-1.0.2.tgz#272a98196ffb6d03263c06152e57528abcf772c3"
+  integrity sha512-iDCbNb4F+zMvzpXPyL7NAky0s3IN52LFLI8Bysor/wtw4vFTpdAhKsa/t4efihNNIpNi9QRUiknmNC34o/6P/Q==
+  dependencies:
+    lodash "^4.17.20"
+    nuxt-seo "^1.3.1"
 
 gridsome@^0.7.0:
   version "0.7.23"
@@ -6549,6 +6564,13 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==
+
+nuxt-seo@^1.3.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/nuxt-seo/-/nuxt-seo-1.6.1.tgz#08e9365390d5eae5065bfbf88f272a104c88eb5d"
+  integrity sha512-GROnW5ntmmmmeOUCdYsmCEHJ+Wo0Sil+5ma4N5UVreXUTNNw9zZ9lJ6jO0/cDU24oo7nUvDAUNxzIqCjKKJoYQ==
+  dependencies:
+    debug "^4.2.0"
 
 oauth-sign@~0.9.0:
   version "0.9.0"
@@ -9452,6 +9474,11 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
+
+vue-js-modal@^1.3.28:
+  version "1.3.35"
+  resolved "https://registry.yarnpkg.com/vue-js-modal/-/vue-js-modal-1.3.35.tgz#5f54de1a30a5f977121bfe6b2a1a5498bce2752a"
+  integrity sha512-DKtxUCW/oprM/ndn9h/cnVgsmqjQ/ARy5rH4q/11Pas04og2td+sltl91H/rlwXTwJIqWyt+lJizK5o4ErjWIQ==
 
 vue-loader@^15.7.1:
   version "15.10.1"

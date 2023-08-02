@@ -3,21 +3,24 @@ Layout
   Header
   section.main
     .main__container
-      h1 Самая Быстрая Доставка Пиццы
-      .main__title
-        .main__title-fast Самая Быстрая
-        .main__title-wrap
-          .main__title-delivery Доставка
-          g-image.main__title-img(alt="lightning image", src="~/images/Lightning.png", width="54")
-          .main__title-pizza Пиццы
-      p.main__suptitle {{ suptitle }}
-        span.main__suptitle-span пицца бесплатно!
-      .main__process Процесс приготовления:
-      Video.main__video
-      .main__button
-        BaseBtn(:text="'заказать'", , :classBtn="'paddingBtnMain'")
-  <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-  //- g-image(alt="Example image", src="~/favicon.png", width="135")
+      .main__content
+        h1 Самая Быстрая Доставка Пиццы
+        .main__title
+          .main__title-fast Самая Быстрая
+          .main__title-wrap
+            .main__title-delivery Доставка
+            g-image.main__title-img(alt="lightning image", src="~/images/Lightning.png", width="54")
+            .main__title-pizza Пиццы
+        p.main__suptitle {{ suptitle }}
+          span.main__suptitle-span пицца бесплатно!
+        .main__process Процесс приготовления:
+        Video.main__video
+        .main__button
+          BaseBtn(:text="'заказать'", :classBtn="'paddingBtnMain'")
+      .main__pic
+        g-image.main__img(alt="Изображение пиццы", src="~/images/main-img.png", width="456")
+    <!-- Learn how to use images here: https://gridsome.org/docs/images -->
+    //- g-image(alt="Example image", src="~/favicon.png", width="135")
 
 </template>
 
@@ -26,6 +29,23 @@ import Header from "~/components/Header.vue";
 import Video from "~/components/Video.vue";
 import BaseBtn from "~/components/BaseBtn.vue";
 export default {
+  metaInfo () {
+    return this.$seo({
+      title: 'Пицца', // Uses the titleTemplate in Gridsome config
+      description: 'My description',
+      keywords: 'one,two',
+      openGraph: {
+        title: 'My site',
+        type: 'website'
+      },
+      twitter: {
+        title: 'My site',
+        type: 'summary'
+      },
+      link: [],   // any links
+      script: []  // any scripts
+    })
+  },
   components: {
     Header,
     Video,
@@ -35,15 +55,15 @@ export default {
     return {
       suptitle: "Доставим сочную пиццу для вашей семьи за 30 минут, если курьер опаздывает - "
     }
-  },
-  metaInfo: {
-    title: 'Hello, world!'
   }
 }
 </script>
 
 <style scoped>
 .main__container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-bottom: 7%;
 }
 
@@ -90,9 +110,9 @@ h1{
   margin-right: 20px;
 }
 
-.main__title-pizza{
+/* .main__title-pizza{
 
-}
+} */
 
 .main__suptitle{
   width: 100%;
@@ -123,9 +143,9 @@ h1{
   margin-bottom: 4.8%;
 }
 
-.main__play-btn{
+/* .main__play-btn{
 
-}
+} */
 .main__button{
   width: 100%;
   max-width: 230px;
@@ -137,4 +157,34 @@ font-weight: 500;
 line-height: 123.5%;
 }
 
+.main__pic{
+  position: relative;
+  
+}
+
+.main__img{
+ 
+  border-radius: 46px;
+  box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29);
+}
+
+.main__pic::before{
+  position: absolute;
+  top: -19%;
+  right: -29%;
+  content: url('../images/pizza.png');
+  width: 287px;
+  height: 287px;
+  z-index: -1;
+}
+
+.main__pic::after{
+  position: absolute;
+  bottom: -12%;
+  left: -41%;
+  content: url('../images/fries.png');
+  width: 287px;
+  height: 287px;
+  z-index: -1;
+}
 </style>

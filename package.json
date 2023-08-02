@@ -9,7 +9,9 @@
   "dependencies": {
     "autoprefixer": "^10.4.14",
     "gridsome": "^0.7.0",
-    "gridsome-plugin-sass-resources-loader": "^0.0.3"
+    "gridsome-plugin-modal": "^0.1.1",
+    "gridsome-plugin-sass-resources-loader": "^0.0.3",
+    "gridsome-plugin-seo": "^1.0.2"
   },
   "devDependencies": {
     "gridsome-plugin-pug": "^0.0.3",

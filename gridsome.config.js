@@ -18,7 +18,7 @@ function addStyleResource (rule) {
 }
 
 module.exports = {
-  siteName: 'Gridsome',
+  siteName: 'pizza',
   chainWebpack (config) {
     // Load variables for all vue-files
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
@@ -34,6 +34,12 @@ module.exports = {
           pug: { /* Options for `pug-plain-loader` */ },
           pugLoader: { /* Options for `pug-loader` */ }
       }
+    },
+    {
+      use: 'gridsome-plugin-seo'
+    },
+    {
+      use: 'gridsome-plugin-modal'
     },
     {
       use: 'gridsome-plugin-sass-resources-loader',
