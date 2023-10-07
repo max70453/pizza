@@ -1,17 +1,18 @@
 <template lang="pug">
-header.header
-  g-link(to="/home").header__link pizzashop
-  nav.header__nav-menu
-    g-link.header__nav-link(
-      v-for="item in navItems",
-      :to="item.link",
-      @click="isActive=!isActive",
-      :class="{active: isActive}"
-    ) {{ item.title }}
-  .header__buttons
-    BaseBtn(:text="'login'", :classBtn="'paddingBtnLogin'").header__button
-    //- a(href='#').header__login Логин
-    g-image(alt="cart image", src="~/images/cart.png", width="40").header__cart
+.header__wrap
+  header.header
+    .header__logo pizzashop
+    nav.header__nav
+      ul.header__menu 
+        li.header__menu-item(v-for="item in navItems")
+          g-link.header__nav-link(
+            :to="item.link",
+            @click="isActive=!isActive",
+            :class="{active: isActive}"
+          ) {{ item.title }}
+    .header__actions
+      BaseBtn(:text="'Bход'", :classBtn="'btn--md'").header__button
+      g-image(alt="cart image", src="~/images/cart.png", width="40").header__cart
 </template>
 
 <script>
@@ -25,9 +26,9 @@ export default {
     return {
       navItems: [
         {title: 'Главная', link: '/'},
-        {title: 'Меню', link: '/menu/'},
-        {title: 'События', link: '/events/'},
-        {title: 'О нас', link: '/about/'}
+        {title: 'Меню', link: '/'},
+        {title: 'Акции', link: '/'},
+        {title: 'Контакты', link: '/'}
       ],
       isActive: false
     }
@@ -39,72 +40,65 @@ export default {
 }
 </script>
 
-<style>
-.header{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 4.7%;
-  margin-bottom: 5%;
-}
+<style lang="sass">
+@import "~/assets/index.scss"
 
-.header__nav-menu{
-  display: flex;
-  justify-content: space-between;
-  width: 469px;
-}
+.header__wrap  
+  padding-top: 4.7%
+  margin-bottom: 8%
 
-.header__nav-link{
-  font-size: 17.88px;
-  font-family: Muller;
-  color: #A3A3A3;
-  position: relative;
-}
+.header__logo
+  font-family: $font-family-extra-bold
+  font-size: 34px
+  line-height: 109.5%
+  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+  background-clip: text
+  color: transparent
 
-.header__nav-link:hover{
-  background: linear-gradient(45deg, #FF6432 33%, #FFA228 66%);
-  background-clip: text;
-  color: transparent;
-}
+.header
+  display: flex
+  justify-content: space-between
 
-.active{
-  background: linear-gradient(45deg, #FF6432 33%, #FFA228 66%);
-  background-clip: text;
-  color: transparent;
-}
+.header__nav
 
-.active:before{
-  position: absolute;
-  display: block;
-  content: "";
-  top: 100%;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  width: 6px;
-  height: 6px;
-  border-radius: 6px;
-  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%);
-}
+.header__menu 
+  display: flex
+  align-items: center
+  margin: 0 -40px
 
-.header__link{
-  font-size: 34.058px;
-  font-family: Muller;
-  font-weight: 800;
-  line-height: 109.5%;
-  background: linear-gradient(45deg, #FF6432 33%, #FFA228 66%);
-  background-clip: text;
-  color: transparent;
-}
+.header__menu-item
+  padding: 0 40px
 
-.header__buttons{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.header__nav-link
+  font-size: 18px
+  line-height: 19.6px
+  color: #A3A3A3
+  position: relative
+  &:hover
+    background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+    background-clip: text
+    color: transparent
 
-.header__button{
-  margin-right: 26px;
-}
+.active
+  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+  background-clip: text
+  color: transparent
+
+.active::before
+  position: absolute
+  display: block
+  content: ""
+  bottom: -7px
+  left: 50%
+  width: 6px
+  height: 6px
+  border-radius: 6px
+  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+
+.header__actions
+  display: flex
+
+.header__button
+  margin-right: 26px
 
 </style>

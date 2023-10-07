@@ -1,33 +1,79 @@
 <template lang="pug">
 Layout
   Header
-  section.main
+  section.main-screen
     .main__container
       .main__content
-        h1 Самая Быстрая Доставка Пиццы
-        .main__title
-          .main__title-fast Самая Быстрая
-          .main__title-wrap
-            .main__title-delivery Доставка
-            g-image.main__title-img(alt="lightning image", src="~/images/Lightning.png", width="54")
-            .main__title-pizza Пиццы
-        p.main__suptitle {{ suptitle }}
-          span.main__suptitle-span пицца бесплатно!
-        .main__process Процесс приготовления:
-        Video.main__video
+        h1.hidden Быстрая Доставка Пиццы
+        .title.main__title 
+          span Молниеносная 
+          br
+          |Доставка
+          .title__img-cont
+            g-image.main__title-img(alt="lightning image" src="~/images/Lightning.png" width="48")
+          |Пиццы
+        p.text.main__suptitle {{ suptitle }}
+          span.text--accent пицца бесплатно!
+        .text Процесс приготовления:
+        Video.main__video(
+          :video="'video.mp4'",
+          :poster="'shourav.png'"
+          @play="onPlayerPlay"
+          @pause="onPlayerPause"
+          @ended="onPlayerEnded"
+          @loadeddata="onPlayerLoadeddata"
+          @waiting="onPlayerWaiting"
+          @playing="onPlayerPlaying"
+          @timeupdate="onPlayerTimeupdate"
+          @canplay="onPlayerCanplay"
+          @canplaythrough="onPlayerCanplaythrough"
+          @statechanged="playerStateChanged"
+          @full-screen="onPlayerFullscreen"
+        )   
+          template(
+            v-slot:controls="{ playBtn, togglePlay, playing, percentagePlayed, seekToPercentage,duration,convertTimeToDuration,videoMuted,toggleMute,fullScreen,toggleScreen}")
+            .video-controls(v-show="!playBtn")
+              .video-controls__actions
+                button.video-controls__btn.video-controls__toggleplay(@click="togglePlay()" ref="playBtn") 
+                  <font-awesome-icon fa-pull-left class="icon" :icon="`fa-solid ${playing ? iPause : iPlay}`" />
+                .video-controls-time.
+                  {{ convertTimeToDuration(time) }} / {{ convertTimeToDuration(duration) }}
+                button.video-controls__btn.video-controls__togglescreen(@click="toggleScreen()")
+                  <font-awesome-icon class="icon" :icon="`fa-solid ${fullScreen ? iSmallScreen : iFullScreen}`" />
+                button.video-controls__btn.video-controls__togglemute(@click="toggleMute()")
+                  <font-awesome-icon class="icon" :icon="`fa-solid ${videoMuted ? iVolumeOn : iVolumeOff}`" />
+              .video-controls__track
+                videoplayer-track.video-controls-track(:percentage="percentagePlayed", @seek="seekToPercentage")
+            g-image.video__play-btn(
+              v-show="playBtn"
+              @click="togglePlay()"
+              alt="воспроизвести", 
+              src="~/images/play-btn.svg", 
+              width="140" 
+              )      
+    
         .main__button
-          BaseBtn(:text="'заказать'", :classBtn="'paddingBtnMain'")
-      .main__pic
-        g-image.main__img(alt="Изображение пиццы", src="~/images/main-img.png", width="456")
-    <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-    //- g-image(alt="Example image", src="~/favicon.png", width="135")
+          BaseBtn(:text="'Заказать'", :classBtn="'btn--lg'")
+      //- .main__pic
+      //-   .main__pic-pizza
+      //-   .main__pic-fries
+      //-   g-image.main__img(alt="Изображение пиццы", src="~/images/main-img.png")
+      .swiper
+        .main__pic-pizza
+        .main__pic-fries
+        slider-img
+
 
 </template>
 
 <script>
+import SliderImg from "~/components/SliderImg.vue";
 import Header from "~/components/Header.vue";
 import Video from "~/components/Video.vue";
+import VideoplayerTrack from "~/components/Video-track.vue";
 import BaseBtn from "~/components/BaseBtn.vue";
+
+
 export default {
   metaInfo () {
     return this.$seo({
@@ -49,142 +95,271 @@ export default {
   components: {
     Header,
     Video,
-    BaseBtn
+    BaseBtn,
+    VideoplayerTrack,
+    SliderImg
   },
   data(){
     return {
-      suptitle: "Доставим сочную пиццу для вашей семьи за 30 минут, если курьер опаздывает - "
+      iPlay: 'fa-play',
+      iPause: 'fa-pause',
+      iVolumeOn: 'fa-volume-xmark',
+      iVolumeOff: 'fa-volume-high',
+      iFullScreen: 'fa-expand',
+      iSmallScreen: 'fa-compress',
+      time: 0,
+      suptitle: "Доставим сочную пиццу за 30 минут, если курьер опаздывает - ",
     }
-  }
+  },
+  methods: {
+    onPlayerFullscreen(){
+      // console.log("event.type");
+      this.$refs.playBtn.focus();
+      // player.setScreen(true);
+    },
+    onPlayerPlay({ event, player }) {
+      // console.log(event.type);
+      player.setPlaying(true);
+    },
+    onPlayerPause({ event, player }) {
+      // console.log(event.type);
+      player.setPlaying(false);
+    },
+    onPlayerEnded({ event, player }) {
+      // console.log(event.type);
+      player.setPlaying(false);
+    },
+    onPlayerLoadeddata({ event }) {
+      // console.log(event.type);
+    },
+    onPlayerWaiting({ event }) {
+      // console.log(event.type);
+    },
+    onPlayerPlaying({ event }) {
+      // console.log(event.type);
+    },
+    onPlayerTimeupdate({ event }) {
+      this.time = event.target.currentTime;
+      if(this.time > 0){
+        this.playBtn = false;
+      }
+      // console.log({ event: event.type, time: event.target.currentTime });
+    },
+    onPlayerCanplay({ event }) {
+      // console.log(event.type);
+      // console.log({ event: event.type, time: event.target.currentTime });
+    },
+    onPlayerCanplaythrough({ event }) {
+      // console.log(event.type);
+    },
+    playerStateChanged({ event }) {
+      // console.log(event.type);
+    },
+  },
 }
 </script>
 
-<style scoped>
-.main__container{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 7%;
-}
+<style lang="sass">
+@import "~/assets/index.scss"
+.slick-dots
+  bottom: -35px
 
-h1{
-  display: none;
-}
-.main__title {
-  color: #FFF;
-  font-size: 69.17px;
-  font-family: Muller;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 109.5%;
-  width: 560px;
-  position: relative;
-  margin-bottom: 2.5%;
-}
+.slick-dots:not(#_) 
+  button:before 
+    color: #98350cfa
+    opacity: 1
+    font-size: 10px
 
-.main__title-fast{
-  margin-bottom: 20px;
-}
+  .slick-active button:before 
+    font-size: 15px
+    color: #FF5924
 
-.main__title-fast:after{
-  content: "";
-  width: 105px;
-  height: 37px;
-  background: url("../images/Vector2.png") no-repeat;
-  top: 23%;
-  right: -10%;
-  position: absolute;
-  display: inline-block;
-}
+.slick-dots li 
+  width: 25px
 
-.main__title-wrap{
-  display: flex;
-  align-items: center;
-}
-
-.main__title-delivery{
-  margin-right: 20px;
-}
-
-.main__title-img{
-  margin-right: 20px;
-}
-
-/* .main__title-pizza{
-
-} */
-
-.main__suptitle{
-  width: 100%;
-  max-width: 480px;
-  color: #A3A3A3;
-  font-size: 19.562px;
-  font-family: Muller;
-  font-style: normal;
-  font-weight: 400;
-  margin-bottom: 23px;
-}
-
-.main__suptitle-span{
-  font-size: 19.562px;
-  font-family: Muller;
-  color: #fff;
-}
-
-.main__process{
-  color: #A3A3A3;
-  font-size: 19.562px;
-  font-family: Muller;
-  margin-bottom: 12px;
-  line-height: 136%;
-}
-
-.main__video{
-  margin-bottom: 4.8%;
-}
-
-/* .main__play-btn{
-
-} */
-.main__button{
-  width: 100%;
-  max-width: 230px;
-  color: #FFF;
-font-size: 22.439px;
-font-family: Muller;
-font-style: normal;
-font-weight: 500;
-line-height: 123.5%;
-}
-
-.main__pic{
-  position: relative;
+.swiper
+  position: relative
+  box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29)
+  border-radius: 46px
+  height: 675px
   
-}
+.slick-slider
+  width: 100%
+  max-width: 450px
+  border-radius: 46px
 
-.main__img{
- 
-  border-radius: 46px;
-  box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29);
-}
+.slick-img
+  border-radius: 46px
 
-.main__pic::before{
-  position: absolute;
-  top: -19%;
-  right: -29%;
-  content: url('../images/pizza.png');
-  width: 287px;
-  height: 287px;
-  z-index: -1;
-}
+.slick-slide
+  // box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29)
 
-.main__pic::after{
-  position: absolute;
-  bottom: -12%;
-  left: -41%;
-  content: url('../images/fries.png');
-  width: 287px;
-  height: 287px;
-  z-index: -1;
-}
+
+.myslide
+  background: transparent
+
+.icon
+  width: 100%
+  color: #ED7200
+
+.video__play-btn
+  cursor: pointer
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  border-radius: 50%
+  transition: all ease-in-out 0.3s
+  &:hover
+    transition: all ease-in-out 0.3s
+    transform: translate(-50%, -50%) scale(1.1)
+
+.video-controls 
+  transition: opacity 500ms ease-in-out
+  opacity: 0
+  position: absolute
+  bottom: 0
+  padding: 0 15px
+  width: 100%
+  background: linear-gradient(0deg, #000000 30%, rgba(255,255,255, 0))
+  border-radius: 0 0 12px 12px
+  &:hover
+    opacity: 1
+
+.video-controls__actions
+  position: relative
+  display: flex
+  padding-left: 30px
+
+.video-controls__btn
+  width: 40px
+  height: 40px
+  display: flex
+  align-items: center
+  position: absolute
+  border: none
+  cursor: pointer
+  background: transparent
+  background-size: contain
+  background-repeat: no-repeat
+  padding: 0
+  border-radius: 50%
+  &:hover
+    background: rgba(0,0,0,0.5) 
+
+.video-controls__track
+
+.video-controls__toggleplay,
+.video-controls__togglemute,
+.video-controls__togglescreen
+  bottom: -5px
+
+.video-controls__toggleplay
+  margin-right: 10px
+  left: -10px
+
+.video-controls__togglescreen
+  right: 40px
+
+.video-controls__togglemute 
+  right: 5px
+
+.video-controls-time 
+  text-align: center
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+
+.video-controls-track 
+  line-height: 2
+
+.main-screen
+  margin-bottom: 8%
+
+.main__container
+  display: flex
+  justify-content: space-between
+  align-items: center
+  flex-wrap: wrap
+
+.main__content
+  width: 100%
+  max-width: 600px
+
+.main__title 
+  position: relative
+  margin-bottom: 2.5%
+
+.title.main__title span
+  display: inline-block
+  position: relative
+  &::after
+    display: block
+    content: ""
+    width: 105px
+    height: 37px
+    position: absolute
+    background: url("../images/Vector2.png") no-repeat center
+    top: 50%
+    left: 102%
+
+.title__img-cont
+  display: inline-block
+  vertical-align: middle
+  padding: 0 10px
+
+.main__title-img
+
+.main__suptitle
+  width: 100%
+  max-width: 410px
+  margin-bottom: 25px
+
+.main__video
+  width: 100%
+  max-width: 272px
+  margin-top: 15px
+  margin-bottom: 4.8%
+
+.main__button
+  width: 100%
+  max-width: 230px
+  position: relative
+  &::after
+    content: ''
+    display: block
+    width: 165px
+    height: 165px
+    position: absolute
+    left: 110%
+    top: 0
+    background: url("../images/Vector1.png") no-repeat center
+
+.main__pic
+  position: relative
+  
+.main__img
+  border-radius: 46px
+  box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29)
+
+.main__pic
+  position: relative
+
+
+.main__pic-pizza
+  background: url('../images/pizza.png') no-repeat 0 150%
+  width: 55%
+  height: 36%
+  position: absolute
+  top: -7%
+  right: -22%
+  z-index: -1
+
+.main__pic-fries
+  background: url('../images/fries.png') no-repeat center
+  width: 46%
+  height: 32%
+  position: absolute
+  bottom: -10%
+  left: -27%
+  z-index: -1
+
 </style>

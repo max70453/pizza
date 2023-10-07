@@ -1,11 +1,11 @@
 <template lang="pug">
 .Btn
-    a(href='#' @click="onClick", :class="classBtn").button {{ text }}
+    a(href='#' @click="onClick", :class="classBtn").btn {{ text }}
 </template>
 
 <script>
 export default {
-  name: 'LoginBtn',
+  name: 'BaseBtn',
   props: {
     text: {
         type: String,
@@ -18,36 +18,52 @@ export default {
   },
   data () {
     return {
-      message: 'Try change me!'
+     
     }
   },
   methods: {
     onClick () {
-      console.log('login');
+      console.log('btn click');
     }
   }
 }
 </script>
 
-<style>
-  .button{
-    color: #FFF;
-    font-family: Muller;
-    font-weight: 500;
-    text-align: center;
-    border-radius: 700px 675px 700px 700px;
-    background: linear-gradient(215deg, #FF5D29 0%, #FE9C1C 100%);
-  }
+<style lang="sass">
+@import "~/assets/index.scss"
 
-.paddingBtnLogin{
-  font-size: 17.74px;
-  padding: 11px 56px;
-  line-height: 109.5%;
-}
+.btn
+  display: block
+  color: $color-text-accent
+  font-family: "MullerMedium"
+  text-align: center
+  border-radius: 700px 675px 700px 700px
+  background: linear-gradient(215deg, #FF5924 0%, #FFA229 100%)
+  transition: all 0.3s ease-out, color 0s
+  &:hover
+    outline: 1.5px solid #FF5924
+    box-shadow: 0px 7.59366px 33.74961px 0px rgba(255, 107, 0, 0.06)
+    color: transparent
+    background-image: linear-gradient(262deg, #FF5924 12.12%, #FFA229 86.72%)
+    background-clip: text
+    -webkit-background-clip: text
+    
 
-.paddingBtnMain{
-  font-size: 22.439px;
-  line-height: 123.5%;
-  padding: 17px 72px;
-}
+
+.btn--sm
+  font-size: 15px
+  padding: 10px 83px
+  line-height: 16.5px
+
+.btn--md
+  font-size: 18px
+  padding: 10px 55px
+  line-height: 19px
+
+.btn--lg
+  font-size: 20px
+  line-height: 22px
+  padding: 20px 74px
+
+
 </style>
