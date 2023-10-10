@@ -12,6 +12,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { faPause } from '@fortawesome/free-solid-svg-icons'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import { faCompress } from '@fortawesome/free-solid-svg-icons'
+import VBodyScrollLock from 'v-body-scroll-lock'
 
 /* add icons to the library */
 library.add(faVolumeHigh, faVolumeXmark, faPlay, faPause, faExpand, faCompress)
@@ -20,4 +21,5 @@ export default function (Vue, { router, head, isClient }) {
   // Set default layout as a global component
   Vue.component('font-awesome-icon', FontAwesomeIcon);
   Vue.component('Layout', DefaultLayout);
+  Vue.use(VBodyScrollLock);
 }

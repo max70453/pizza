@@ -18,6 +18,7 @@
     "gridsome-plugin-modal": "^0.1.1",
     "gridsome-plugin-seo": "^1.0.2",
     "swiper": "^6.0.2",
+    "v-body-scroll-lock": "^1.1.3",
     "vue-slick-carousel": "^1.0.6"
   },
   "devDependencies": {

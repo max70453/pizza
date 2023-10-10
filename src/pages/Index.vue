@@ -54,14 +54,11 @@ Layout
     
         .main__button
           BaseBtn(:text="'Заказать'", :classBtn="'btn--lg'")
-      //- .main__pic
-      //-   .main__pic-pizza
-      //-   .main__pic-fries
-      //-   g-image.main__img(alt="Изображение пиццы", src="~/images/main-img.png")
       .swiper
         .main__pic-pizza
         .main__pic-fries
         slider-img
+  .overlay(ref='overlay')
 
 
 </template>
@@ -161,6 +158,19 @@ export default {
 
 <style lang="sass">
 @import "~/assets/index.scss"
+
+.overlay
+  display: none
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  backdrop-filter: blur(5px)
+  z-index: 10
+  background-color: rgba(255, 255, 255, 0.5)
+  
+
 .slick-dots
   bottom: -35px
 

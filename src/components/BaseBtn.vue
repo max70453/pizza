@@ -1,12 +1,16 @@
 <template lang="pug">
 .Btn
-    a(href='#' @click="onClick", :class="classBtn").btn {{ text }}
+    a(href='#' @click="onClick", :class="classBtn", v-show="visible").btn {{ text }}
 </template>
 
 <script>
 export default {
   name: 'BaseBtn',
   props: {
+    visible: {
+      type: Boolean,
+      default: true
+    },
     text: {
         type: String,
         default: 'NoName',
@@ -24,6 +28,7 @@ export default {
   methods: {
     onClick () {
       console.log('btn click');
+      console.log(this.visible);
     }
   }
 }
