@@ -192,6 +192,9 @@ export default {
   box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29)
   border-radius: 46px
   height: 675px
+  @include max-w(430)
+    order: -1
+    margin-bottom: 20%
   
 .slick-slider
   width: 100%
@@ -289,6 +292,8 @@ export default {
   justify-content: space-between
   align-items: center
   flex-wrap: wrap
+  @include max-w(430)
+    justify-content: center
 
 .main__content
   width: 100%
@@ -309,7 +314,9 @@ export default {
     position: absolute
     background: url("../images/Vector2.png") no-repeat center
     top: 50%
-    left: 102%
+    left: 102%  
+    @include max-w(430)
+      display: none
 
 .title__img-cont
   display: inline-block
@@ -317,6 +324,8 @@ export default {
   padding: 0 10px
 
 .main__title-img
+  @include max-w(430)
+    max-width: 35px
 
 .main__suptitle
   width: 100%
@@ -328,11 +337,15 @@ export default {
   max-width: 272px
   margin-top: 15px
   margin-bottom: 4.8%
+  @include max-w(430)
+    width: 194px
 
 .main__button
   width: 100%
   max-width: 230px
   position: relative
+  @include max-w(430)
+    max-width: 164px
   &::after
     content: ''
     display: block
@@ -342,6 +355,8 @@ export default {
     left: 110%
     top: 0
     background: url("../images/Vector1.png") no-repeat center
+    @include max-w(430)
+      display: none
 
 .main__pic
   position: relative
@@ -355,7 +370,9 @@ export default {
 
 
 .main__pic-pizza
-  background: url('../images/pizza.png') no-repeat 0 150%
+  background-image: url('../images/pizza.png') 
+  background-repeat: no-repeat
+  background-position: 0 150%
   width: 55%
   height: 36%
   position: absolute
@@ -371,5 +388,12 @@ export default {
   bottom: -10%
   left: -27%
   z-index: -1
+
+.main__pic-fries,
+.main__pic-pizza
+  @include max-w(430)
+    background-position: center
+    z-index: 1
+    background-size: cover
 
 </style>

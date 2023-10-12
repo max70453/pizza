@@ -58,6 +58,7 @@ export default{
 </script>
 
 <style lang="sass">
+@import "~/assets/index.scss"
 
 .slick-dots
   bottom: -35px
@@ -80,6 +81,9 @@ export default{
   box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29)
   border-radius: 46px
   height: 675px
+  @include max-w(430)
+    max-width: 243px
+    max-height: 365px
   
 .slick-slider
   width: 100%

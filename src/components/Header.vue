@@ -7,17 +7,15 @@
         li.header__menu-item(v-for="item in navItems")
           g-link.header__nav-link(
             :to="item.link",
-            @click="isActive=!isActive",
-            :class="{'active-link': isActive}"
           ) {{ item.title }}
     .header__actions
       BaseBtn(:text="'Bход'", :classBtn="'btn--md'", :visible="loginVisible").header__button
       g-image(alt="cart image", src="~/images/cart.png", width="40" @click="activeClass").header__cart
-      button(type="button" class="burger-button" :class="{'active': active}" title="Menu" @click="toggleActive")
+      button(type="button" class="burger-button" :class="{'active-nav': active}" title="Menu" @click="toggleActive")
         span.burger-bar.burger-bar--1
         span.burger-bar.burger-bar--2
         span.burger-bar.burger-bar--3
-      .burger-menu(id="burger" :class="{'active': active}" v-show="active" )
+      .burger-menu(id="burger" :class="{'active-nav': active}" v-show="active" )
         nav.header__nav-mobile()
           .header__logo pizzashop
           ul.header__menu-mobile
@@ -82,32 +80,40 @@ export default {
       }
       
     }
-  }
+  },
+  computed:{
+    imgWidth(){
+
+    }
+  },
 }
 </script>
 
 <style lang="sass">
 @import "~/assets/index.scss"
 
+.active
+  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+  background-clip: text
+  color: transparent
+
 .header__menu-mobile .header__nav-link
   color: #1F0700
 
 .burger-menu
-  position: absolute
+  position: fixed
   left: 0
   top: 0
   bottom: 0
   width: 65%
-  height: 100vh
   padding: 0 40px
+  overflow: auto
   background-color: rgba(237, 171, 0, 1)
   z-index: 999
   transform: translateX(-100%)
   transition: all 5s ease-in-out
 
-.burger-menu.active 
-  touch-action: none
-  overflow: auto
+.burger-menu.active-nav
   transform: translateX(0%)
 
 .header__nav-mobile
@@ -118,11 +124,11 @@ export default {
   background-clip: text
   margin-bottom: 40px
 
-.burger-menu.active .header__nav-mobile
+.burger-menu.active-nav .header__nav-mobile
   padding: 20px  0
   position: relative
 
-.burger-button.active 
+.burger-button.active-nav
 
 .burger-button 
   position: relative
@@ -171,20 +177,20 @@ export default {
   transform: translateY(6px)
   top: 55%
 
-.burger-button.active 
+.burger-button.active-nav
     transform: rotate(-180deg)
 
-.burger-button.active .burger-bar 
+.burger-button.active-nav .burger-bar 
     // background-color: lighten(#1F0700, 10)
 
-.burger-button.active .burger-bar--1 
+.burger-button.active-nav .burger-bar--1 
     transform: rotate(45deg)
     top: 50%
 
-.burger-button.active .burger-bar--2 
+.burger-button.active-nav .burger-bar--2 
     opacity: 0
 
-.burger-button.active .burger-bar--3 
+.burger-button.active-nav .burger-bar--3 
     transform: rotate(-45deg)
     top: 50%
 

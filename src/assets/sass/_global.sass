@@ -24,7 +24,9 @@ html
   font-family: "MullerExtraBold"
   font-size: 63px
   color: $color-text-accent
-  line-height: 76px
+  line-height: 109.5%
+  @include max-w(430)
+    font-size: 40px
 
 .hidden
   display: none
@@ -33,6 +35,8 @@ html
   font-family: "Muller"
   font-size: 19.5px
   color: $color-text-base
+  @include max-w(430)
+    font-size: 14px
 
 .text--accent
   color: $color-text-accent

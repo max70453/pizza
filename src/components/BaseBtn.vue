@@ -67,8 +67,11 @@ export default {
 
 .btn--lg
   font-size: 20px
-  line-height: 22px
+  line-height: 123.5%
   padding: 20px 74px
+  @include max-w(430)
+    padding: 12px 50px
+    font-size: 16px
 
 
 </style>
