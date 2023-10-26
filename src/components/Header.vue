@@ -1,30 +1,46 @@
 <template lang="pug">
 .header__wrap
   header.header
-    .header__logo pizzashop
-    nav.header__nav
-      ul.header__menu 
-        li.header__menu-item(v-for="item in navItems")
-          g-link.header__nav-link(
-            :to="item.link",
-          ) {{ item.title }}
-    .header__actions
-      BaseBtn(:text="'Bход'", :classBtn="'btn--md'", :visible="loginVisible").header__button
-      g-image(alt="cart image", src="~/images/cart.png", width="40" @click="activeClass").header__cart
-      button(type="button" class="burger-button" :class="{'active-nav': active}" title="Menu" @click="toggleActive")
-        span.burger-bar.burger-bar--1
-        span.burger-bar.burger-bar--2
-        span.burger-bar.burger-bar--3
-      .burger-menu(id="burger" :class="{'active-nav': active}" v-show="active" )
-        nav.header__nav-mobile()
-          .header__logo pizzashop
-          ul.header__menu-mobile
-            li.header__menu-item(v-for="item in navItems")
-              g-link.header__nav-link(
-                :to="item.link",
-                @click="isActive=!isActive",
-                :class="{'active-link': isActive}"
-              ) {{ item.title }}
+    .flex.header__contacts
+      a.header__phone(href="tel:+79495551111") +7(949)555-11-11
+      a.header__phone(href="tel:+79495551111") +7(949)555-11-11
+    .flex.header__content
+      g-link.header__logo(to="/") pizzashop
+      nav.header__nav
+        ul.flex.flex--center.header__menu
+          li.header__menu-item(v-for="item in navItems")
+            g-link.header__nav-link(
+              :to="item.link",
+            ) {{ item.title }}
+      .flex.flex--center.header__actions
+        BaseBtn(:text="'Bход'", :classBtn="'btn--md'", :visible="loginVisible").header__button
+        g-image(alt="cart image", src="~/images/cart.png", width="40" @click="activeClass").header__cart
+        button(type="button" class="burger-button" :class="{'active-nav': active}" title="Menu" @click="toggleActive")
+          span.burger-bar.burger-bar--1
+          span.burger-bar.burger-bar--2
+          span.burger-bar.burger-bar--3
+        .flex.burger-menu(id="burger" :class="{'active-nav': active}" )
+          nav.header__nav-mobile()
+            .header__logo pizzashop
+            ul.header__menu-mobile
+              li.header__menu-item(v-for="item in navItems")
+                g-link.header__nav-link(
+                  exact
+                  :to="item.link",
+                ) {{ item.title }}
+          .burger-menu__bottom
+            .flex.flex--center.header__contacts
+              a.header__phone(href="tel:+79495551111") +7(949)555-11-11
+              a.header__phone(href="tel:+79495551111") +7(949)555-11-11
+            .header__socials
+              a.header__social-link(href="https://web.telegram.org/" target="_blank")
+                <font-awesome-icon class="fa-2x" :icon="['fab', 'telegram']" />
+              a.header__social-link(href="https://www.whatsapp.com/" target="_blank")
+                <font-awesome-icon class="fa-2x" :icon="['fab', 'whatsapp']" />
+              a.header__social-link(href="https://vk.com/" target="_blank")
+                <font-awesome-icon class="fa-2x" :icon="['fab', 'vk']" />
+
+
     //- .burger-menu(id="burger" :class="{'active': active}")
       button(type="button" class="burger-button" title="Menu" @click="toggleActive")
         span.burger-bar.burger-bar--1
@@ -50,17 +66,21 @@ export default {
     BaseBtn
   },
   props: {
+    width: {
+      type: Number,
+      required: true
+    },
   },
   data () {
     return {
-      active: false,
+      iTwitter: 'fab-twitter',
+      activeFlag: false,
       navItems: [
         {title: 'Главная', link: '/'},
-        {title: 'Меню', link: '/'},
-        {title: 'Акции', link: '/'},
-        {title: 'Контакты', link: '/'},
+        {title: 'Меню', link: '/menu/'},
+        {title: 'Акции', link: '/promo/'},
+        {title: 'Контакты', link: '/contacts/'},
       ],
-      isActive: true,
       loginVisible: true,
     }
   },
@@ -69,21 +89,32 @@ export default {
       console.log('clicked');
     },
     toggleActive () {
-      this.active = !this.active;
+      this.activeFlag = !this.activeFlag;
+      this.active;
+      console.log(this.active);
+      console.log('this.width', this.width);
+      if(this.width > 768){
+        this.active = false;
+      }
       if(this.active){
         document.body.style.overflow='hidden';
-        this.$parent.$parent.$refs.overlay.style.display = 'block'
+        this.$parent.$refs.overlay.style.display = 'block'
       }
       else{
         document.body.style.overflow='auto'
-        this.$parent.$parent.$refs.overlay.style.display = 'none'
+        this.$parent.$refs.overlay.style.display = 'none'
       }
       
     }
   },
   computed:{
-    imgWidth(){
-
+    active(){
+      if(this.width > 768){
+        this.$parent.$refs.overlay.style.display = 'none'
+        return this.activeFlag = false;
+        
+      }
+      return this.activeFlag;
     }
   },
 }
@@ -92,43 +123,102 @@ export default {
 <style lang="sass">
 @import "~/assets/index.scss"
 
-.active
-  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+.fa-telegram
+  color: #229ED9
+
+.fa-vk
+  color: #4C75A3
+
+.fa-whatsapp
+  color: #25D366
+
+.active--exact
+  background: linear-gradient(262deg, #FF6432 12.12%, #FFA228 86.72%)
   background-clip: text
+  -webkit-text-fill-color: transparent
   color: transparent
+
+.active--exact:not(.header__logo)::before
+  position: absolute
+  display: block
+  content: ""
+  bottom: -7px
+  left: 50%
+  width: 6px
+  height: 6px
+  border-radius: 6px
+  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+  
 
 .header__menu-mobile .header__nav-link
   color: #1F0700
+  font-size: 20px
+  &:hover
+    color: $color-text-accent
 
 .burger-menu
   position: fixed
+  flex-direction: column
+  justify-content: space-between
   left: 0
   top: 0
   bottom: 0
   width: 65%
-  padding: 0 40px
-  overflow: auto
+  padding: 10%
   background-color: rgba(237, 171, 0, 1)
+  background: linear-gradient(215deg, #FF5924 0%, #FFA229 100%)
   z-index: 999
   transform: translateX(-100%)
-  transition: all 5s ease-in-out
+  transition: .5s 
 
 .burger-menu.active-nav
   transform: translateX(0%)
+  overflow: auto
+
+.header__menu-mobile .header__nav-link.active--exact
+  -webkit-text-fill-color: inherit
+  color: $color-text-accent
+  position: relative
+
+.header__menu-mobile .header__nav-link.active--exact::after
+  content: ''
+  width: 100%
+  height: 1px
+  display: block
+  position: absolute
+  bottom: -1px
+  left: 0
+  background-color: $color-text-accent
+
 
 .header__nav-mobile
-  height: 100%
+  margin-bottom: 40px
   
 .header__nav-mobile .header__logo
+  font-size: 40px
   background: $color-background
   background-clip: text
   margin-bottom: 40px
 
 .burger-menu.active-nav .header__nav-mobile
-  padding: 20px  0
   position: relative
+  text-align: center
+
+.header__socials
+  text-align: center
+
+.header__social-link
+  display: inline-block
+  width: 30px
+  height: 30px
+  margin-right: 15px
+  &:hover
+    opacity: .7
 
 .burger-button.active-nav
+
+.burger-menu__bottom
+
 
 .burger-button 
   position: relative
@@ -196,7 +286,7 @@ export default {
 
 .header__wrap  
   padding-top: 4.7%
-  margin-bottom: 8%
+  margin-bottom: 10%
 
 .header__logo
   font-family: $font-family-extra-bold
@@ -207,23 +297,45 @@ export default {
   color: transparent
 
 .header
-  display: flex
+
+.header__contacts
+  margin-bottom: 20px
+  justify-content: flex-end
+  @include max-w(510)
+    display: none
+
+.burger-menu .header__contacts
+  flex-direction: column
+
+.header__phone
+  color: rgba(237, 171, 0, 1)
+  &:hover
+    opacity: .5
+  &:not(:last-child)
+    margin-right: 15px
+
+.burger-menu .header__phone
+  color: #1F0700
+  margin: 0 0 10px 0
+  font-size: 20px
+
+.header__content
   justify-content: space-between
   align-items: center
 
-.header__nav
+.header__nav,
+.active--exact::before
   @include max-w(768)
     display: none
 
 .header__menu 
-  display: flex
-  align-items: center
   margin: 0 -40px
 
 .header__menu-item
   padding: 0 40px
   @include max-w(1024)
-    padding: 10px
+    padding: 0 10px
+    margin-bottom: 10px
 
 .header__nav-link
   font-size: 18px
@@ -235,27 +347,26 @@ export default {
     background-clip: text
     color: transparent
 
-.active-link
-  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
-  background-clip: text
-  color: transparent
+// .active-link
+//   background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+//   background-clip: text
+//   color: transparent
 
-.active-link::before
-  position: absolute
-  display: block
-  content: ""
-  bottom: -7px
-  left: 50%
-  width: 6px
-  height: 6px
-  border-radius: 6px
-  background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
+// .active-link::before
+//   position: absolute
+//   display: block
+//   content: ""
+//   bottom: -7px
+//   left: 50%
+//   width: 6px
+//   height: 6px
+//   border-radius: 6px
+//   background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
 
 .header__actions
-  display: flex
-  align-items: center
 
 .header__button
+  width: 160px
   margin-right: 26px
   @include max-w(510)
     display: none

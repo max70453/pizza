@@ -13,10 +13,10 @@ export default {
     },
     text: {
         type: String,
+        required: true,
         default: 'NoName',
     },
     classBtn: {
-      type: String,
       default: 'paddingBtnLogin'
     }
   },
@@ -42,6 +42,7 @@ export default {
   color: $color-text-accent
   font-family: "MullerMedium"
   text-align: center
+  padding: 10px 
   border-radius: 700px 675px 700px 700px
   background: linear-gradient(215deg, #FF5924 0%, #FFA229 100%)
   transition: all 0.3s ease-out, color 0s
@@ -52,26 +53,36 @@ export default {
     background-image: linear-gradient(262deg, #FF5924 12.12%, #FFA229 86.72%)
     background-clip: text
     -webkit-background-clip: text
-    
 
+.btn-outline
+  outline: 1.5px solid #FF5924
+  box-shadow: 0px 7.59366px 33.74961px 0px rgba(255, 107, 0, 0.06)
+  color: transparent
+  background-image: linear-gradient(262deg, #FF5924 12.12%, #FFA229 86.72%)
+  background-clip: text
+  -webkit-background-clip: text
+  position: relative
 
 .btn--sm
   font-size: 15px
-  padding: 10px 83px
   line-height: 16.5px
 
 .btn--md
   font-size: 18px
-  padding: 10px 55px
   line-height: 19px
+  @include max-w(430)
+    font-size: 10px
+    line-height: 10px
 
 .btn--lg
   font-size: 20px
   line-height: 123.5%
-  padding: 20px 74px
+  padding: 20px 10px
   @include max-w(430)
-    padding: 12px 50px
+    padding: 12px
     font-size: 16px
+
+
 
 
 </style>

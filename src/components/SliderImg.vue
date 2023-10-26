@@ -18,27 +18,27 @@ export default{
 		return{
 			sales: [
         {
-          img: 'pizza3.jpg',
+          img: 'pizza3-promo.jpg',
           alt: "Изображение пиццы"
         },
         {
-          img: 'pizza4.jpg',
+          img: 'pizza4-promo.jpg',
           alt: "Изображение пиццы"
         },
         {
-          img: 'pizza5.jpg',
+          img: 'pizza5-promo.jpg',
           alt: "Изображение пиццы"
         },
         {
-          img: 'pizza6.jpg',
+          img: 'pizza6-promo.jpg',
           alt: "Изображение пиццы"
         },
         {
-          img: 'pizza7.jpg',
+          img: 'pizza7-promo.jpg',
           alt: "Изображение пиццы"
         },
         {
-          img: 'pizza8.jpg',
+          img: 'pizza8-promo.jpg',
           alt: "Изображение пиццы"
         },
       ],
@@ -76,14 +76,7 @@ export default{
 .slick-dots li 
   width: 25px
 
-.swiper
-  position: relative
-  box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29)
-  border-radius: 46px
-  height: 675px
-  @include max-w(430)
-    max-width: 243px
-    max-height: 365px
+
   
 .slick-slider
   width: 100%

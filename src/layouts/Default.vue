@@ -2,6 +2,8 @@
   <div class="container" ref="main">
     <transition name="fade" appear>
         <main>
+          <Header :width="width"></Header>
+          <div class="overlay" ref='overlay'></div>
           <slot />
         </main>
       </transition>
@@ -17,13 +19,76 @@ query {
 </static-query>
 
 <script>
+import Header from "~/components/Header.vue";
+
 export default{
-  
+  components: {
+    Header,
+  },
+  data() {
+    return {
+      debouncedHeight: 0,
+      debouncedWidth: 0,
+      heightTimeout: null,
+      widthTimeout: null
+    };
+  },
+  computed:  {
+	  height:  {
+		  get()  {
+			  return  this.debouncedHeight;
+		  },
+		  set(val)  {
+			  if  (this.timeout)  clearTimeout(this.timeout);
+			  this.heightTimeout =  setTimeout(()  =>  {
+				  this.debouncedHeight = val;
+				},  500);
+			}
+		},
+		width:  {
+		  get()  {
+			  return  this.debouncedWidth;
+		  },
+		  set(val)  {
+			  if  (this.timeout)  clearTimeout(this.timeout);
+			  this.widthTimeout =  setTimeout(()  =>  {
+				  this.debouncedWidth = val;
+				},  500);
+			}
+		},
+	},
+  methods: {
+    resizeHandler(e) {
+      this.height = window.innerHeight;
+      this.width = window.innerWidth;
+    },
+  },
+  mounted() {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+  },
+  created() {
+    window.addEventListener("resize", this.resizeHandler);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeHandler);
+  },
 }
 </script>
 
 <style lang="sass">
 @import "~/assets/index.scss"
+
+.overlay
+  display: none
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  backdrop-filter: blur(5px)
+  z-index: 10
+  background-color: rgba(255, 255, 255, 0.5)
 
 @font-face 
   font-family: "Montserrat"

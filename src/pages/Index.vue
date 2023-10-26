@@ -1,8 +1,7 @@
 <template lang="pug">
 Layout
-  Header
   section.main-screen
-    .main__container
+    .main__container.flex
       .main__content
         h1.hidden Быстрая Доставка Пиццы
         .title.main__title 
@@ -33,14 +32,14 @@ Layout
           template(
             v-slot:controls="{ playBtn, togglePlay, playing, percentagePlayed, seekToPercentage,duration,convertTimeToDuration,videoMuted,toggleMute,fullScreen,toggleScreen}")
             .video-controls(v-show="!playBtn")
-              .video-controls__actions
-                button.video-controls__btn.video-controls__toggleplay(@click="togglePlay()" ref="playBtn") 
+              .video-controls__actions.flex
+                button.video-controls__btn.flex.flex--center.video-controls__toggleplay(@click="togglePlay()" ref="playBtn") 
                   <font-awesome-icon fa-pull-left class="icon" :icon="`fa-solid ${playing ? iPause : iPlay}`" />
                 .video-controls-time.
                   {{ convertTimeToDuration(time) }} / {{ convertTimeToDuration(duration) }}
-                button.video-controls__btn.video-controls__togglescreen(@click="toggleScreen()")
+                button.video-controls__btn.flex.flex--center.video-controls__togglescreen(@click="toggleScreen()")
                   <font-awesome-icon class="icon" :icon="`fa-solid ${fullScreen ? iSmallScreen : iFullScreen}`" />
-                button.video-controls__btn.video-controls__togglemute(@click="toggleMute()")
+                button.video-controls__btn.flex.flex--center.video-controls__togglemute(@click="toggleMute()")
                   <font-awesome-icon class="icon" :icon="`fa-solid ${videoMuted ? iVolumeOn : iVolumeOff}`" />
               .video-controls__track
                 videoplayer-track.video-controls-track(:percentage="percentagePlayed", @seek="seekToPercentage")
@@ -58,7 +57,7 @@ Layout
         .main__pic-pizza
         .main__pic-fries
         slider-img
-  .overlay(ref='overlay')
+  popular
 
 
 </template>
@@ -69,7 +68,7 @@ import Header from "~/components/Header.vue";
 import Video from "~/components/Video.vue";
 import VideoplayerTrack from "~/components/Video-track.vue";
 import BaseBtn from "~/components/BaseBtn.vue";
-
+import Popular from "~/components/Popular.vue";
 
 export default {
   metaInfo () {
@@ -94,7 +93,8 @@ export default {
     Video,
     BaseBtn,
     VideoplayerTrack,
-    SliderImg
+    SliderImg,
+    Popular,
   },
   data(){
     return {
@@ -159,18 +159,6 @@ export default {
 <style lang="sass">
 @import "~/assets/index.scss"
 
-.overlay
-  display: none
-  position: fixed
-  top: 0
-  bottom: 0
-  left: 0
-  right: 0
-  backdrop-filter: blur(5px)
-  z-index: 10
-  background-color: rgba(255, 255, 255, 0.5)
-  
-
 .slick-dots
   bottom: -35px
 
@@ -192,9 +180,12 @@ export default {
   box-shadow: 0px 4px 33px 0px rgba(255, 78, 21, 0.29)
   border-radius: 46px
   height: 675px
-  @include max-w(430)
+  @include max-w(640)
     order: -1
     margin-bottom: 20%
+  @include max-w(800)
+    max-width: 243px
+    max-height: 365px
   
 .slick-slider
   width: 100%
@@ -241,14 +232,11 @@ export default {
 
 .video-controls__actions
   position: relative
-  display: flex
   padding-left: 30px
 
 .video-controls__btn
   width: 40px
   height: 40px
-  display: flex
-  align-items: center
   position: absolute
   border: none
   cursor: pointer
@@ -285,19 +273,21 @@ export default {
   line-height: 2
 
 .main-screen
-  margin-bottom: 8%
+  margin-bottom: 15%
 
 .main__container
-  display: flex
+  width: 95%
   justify-content: space-between
-  align-items: center
-  flex-wrap: wrap
-  @include max-w(430)
+  // align-items: center
+  
+  @include max-w(640)
+    flex-wrap: wrap
     justify-content: center
 
 .main__content
   width: 100%
   max-width: 600px
+  @include max-w(768)
 
 .main__title 
   position: relative
@@ -315,7 +305,7 @@ export default {
     background: url("../images/Vector2.png") no-repeat center
     top: 50%
     left: 102%  
-    @include max-w(430)
+    @include max-w(768)
       display: none
 
 .title__img-cont
@@ -337,7 +327,7 @@ export default {
   max-width: 272px
   margin-top: 15px
   margin-bottom: 4.8%
-  @include max-w(430)
+  @include max-w(800)
     width: 194px
 
 .main__button
@@ -355,7 +345,7 @@ export default {
     left: 110%
     top: 0
     background: url("../images/Vector1.png") no-repeat center
-    @include max-w(430)
+    @include max-w(640)
       display: none
 
 .main__pic
@@ -391,9 +381,10 @@ export default {
 
 .main__pic-fries,
 .main__pic-pizza
-  @include max-w(430)
+  @include max-w(800)
+    background-size: cover
     background-position: center
     z-index: 1
-    background-size: cover
+    
 
 </style>
