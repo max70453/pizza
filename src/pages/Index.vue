@@ -58,17 +58,14 @@ Layout
         .main__pic-fries
         slider-img
   popular
-
+  modal.modal-product(
+    name="pizzaModal"
+    
+  )     
 
 </template>
 
 <script>
-import SliderImg from "~/components/SliderImg.vue";
-import Header from "~/components/Header.vue";
-import Video from "~/components/Video.vue";
-import VideoplayerTrack from "~/components/Video-track.vue";
-import BaseBtn from "~/components/BaseBtn.vue";
-import Popular from "~/components/Popular.vue";
 
 export default {
   metaInfo () {
@@ -89,12 +86,12 @@ export default {
     })
   },
   components: {
-    Header,
-    Video,
-    BaseBtn,
-    VideoplayerTrack,
-    SliderImg,
-    Popular,
+    Video: () => import ('~/components/Video.vue'),
+    BaseBtn: () => import ('~/components/BaseBtn.vue'),
+    VideoplayerTrack: () => import ('~/components/Video-track.vue'),
+    SliderImg: () => import ('~/components/SliderImg.vue'),
+    Popular: () => import ('~/components/Popular.vue'),
+    PizzaModal: () => import ('~/components/PizzaModal.vue'),
   },
   data(){
     return {
@@ -276,7 +273,7 @@ export default {
   margin-bottom: 15%
 
 .main__container
-  width: 95%
+  width: 93%
   justify-content: space-between
   // align-items: center
   

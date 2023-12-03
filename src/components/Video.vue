@@ -128,6 +128,7 @@ methods:{
   },
 
   togglePlay() {
+    console.log('video play');
     if(this.playBtn) this.playBtn = false;
     if (this.playing) {
       this.pause();

@@ -22,8 +22,5 @@ module.exports = {
     {
       use: 'gridsome-plugin-seo'
     },
-    {
-      use: 'gridsome-plugin-modal'
-    },
   ]
 }

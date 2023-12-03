@@ -20,11 +20,11 @@
           span.burger-bar.burger-bar--2
           span.burger-bar.burger-bar--3
         .flex.burger-menu(id="burger" :class="{'active-nav': active}" )
-          nav.header__nav-mobile()
+          nav.nav-mobile()
             .header__logo pizzashop
-            ul.header__menu-mobile
+            ul.menu-mobile
               li.header__menu-item(v-for="item in navItems")
-                g-link.header__nav-link(
+                g-link.menu-mobile__link(
                   exact
                   :to="item.link",
                 ) {{ item.title }}
@@ -39,21 +39,6 @@
                 <font-awesome-icon class="fa-2x" :icon="['fab', 'whatsapp']" />
               a.header__social-link(href="https://vk.com/" target="_blank")
                 <font-awesome-icon class="fa-2x" :icon="['fab', 'vk']" />
-
-
-    //- .burger-menu(id="burger" :class="{'active': active}")
-      button(type="button" class="burger-button" title="Menu" @click="toggleActive")
-        span.burger-bar.burger-bar--1
-        span.burger-bar.burger-bar--2
-        span.burger-bar.burger-bar--3
-      nav.header__nav-mobile(v-show="active")
-        ul.header__menu-mobile
-          li.header__menu-item(v-for="item in navItems")
-            g-link.header__nav-link(
-              :to="item.link",
-              @click="isActive=!isActive",
-              :class="{'active-link': isActive}"
-            ) {{ item.title }}
 
 
 </template>
@@ -71,6 +56,7 @@ export default {
       required: true
     },
   },
+  
   data () {
     return {
       iTwitter: 'fab-twitter',
@@ -84,15 +70,24 @@ export default {
       loginVisible: true,
     }
   },
+  watch:  {
+    width: function(newW, oldW) {
+        if(newW > 768){
+          this.activeFlag = false;
+          document.body.style.overflow='auto'
+          this.$parent.$refs.overlay.style.display = 'none'
+        }
+      }
+  },
   methods: {
     activeClass () {
       console.log('clicked');
     },
     toggleActive () {
+      console.log('toggleActive');
+      console.log('width', this.width);
       this.activeFlag = !this.activeFlag;
       this.active;
-      console.log(this.active);
-      console.log('this.width', this.width);
       if(this.width > 768){
         this.active = false;
       }
@@ -132,13 +127,13 @@ export default {
 .fa-whatsapp
   color: #25D366
 
-.active--exact
+.header__nav-link.active--exact
   background: linear-gradient(262deg, #FF6432 12.12%, #FFA228 86.72%)
   background-clip: text
   -webkit-text-fill-color: transparent
   color: transparent
 
-.active--exact:not(.header__logo)::before
+.header__nav-link.active--exact:not(.header__logo)::before
   position: absolute
   display: block
   content: ""
@@ -150,7 +145,7 @@ export default {
   background: linear-gradient(215deg, #FF6432 0%, #FFA228 100%)
   
 
-.header__menu-mobile .header__nav-link
+.menu-mobile__link
   color: #1F0700
   font-size: 20px
   &:hover
@@ -175,12 +170,12 @@ export default {
   transform: translateX(0%)
   overflow: auto
 
-.header__menu-mobile .header__nav-link.active--exact
+.menu-mobile__link.active--exact
   -webkit-text-fill-color: inherit
   color: $color-text-accent
   position: relative
 
-.header__menu-mobile .header__nav-link.active--exact::after
+.menu-mobile__link.active--exact::after
   content: ''
   width: 100%
   height: 1px
@@ -191,16 +186,19 @@ export default {
   background-color: $color-text-accent
 
 
-.header__nav-mobile
+.nav-mobile
   margin-bottom: 40px
   
-.header__nav-mobile .header__logo
+.nav-mobile .header__logo
   font-size: 40px
   background: $color-background
   background-clip: text
   margin-bottom: 40px
+  @include max-w(480)
+    font-size: 35px
 
-.burger-menu.active-nav .header__nav-mobile
+
+.burger-menu.active-nav .nav-mobile
   position: relative
   text-align: center
 
@@ -323,8 +321,7 @@ export default {
   justify-content: space-between
   align-items: center
 
-.header__nav,
-.active--exact::before
+.header__nav
   @include max-w(768)
     display: none
 
@@ -335,7 +332,6 @@ export default {
   padding: 0 40px
   @include max-w(1024)
     padding: 0 10px
-    margin-bottom: 10px
 
 .header__nav-link
   font-size: 18px

@@ -8,40 +8,16 @@ VueSlickCarousel(v-bind="settings")
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import { mapGetters } from 'vuex'
 
 export default{
 	name: "Slider-Img",
 	components:{
 		VueSlickCarousel,
 	},
+  props:{},
 	data(){
 		return{
-			sales: [
-        {
-          img: 'pizza3-promo.jpg',
-          alt: "Изображение пиццы"
-        },
-        {
-          img: 'pizza4-promo.jpg',
-          alt: "Изображение пиццы"
-        },
-        {
-          img: 'pizza5-promo.jpg',
-          alt: "Изображение пиццы"
-        },
-        {
-          img: 'pizza6-promo.jpg',
-          alt: "Изображение пиццы"
-        },
-        {
-          img: 'pizza7-promo.jpg',
-          alt: "Изображение пиццы"
-        },
-        {
-          img: 'pizza8-promo.jpg',
-          alt: "Изображение пиццы"
-        },
-      ],
 			settings:{
         "arrows": false,
         "dots": true,
@@ -53,7 +29,12 @@ export default{
         "fade": true
       },
 		}
-	}
+	},
+  computed:{
+    ...mapGetters('sales', {
+      sales: 'getSales'
+    }),
+  },
 }
 </script>
 

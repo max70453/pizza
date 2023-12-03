@@ -17,6 +17,7 @@ section.popular
   
   <script>
   import PizzaCard from "~/components/PizzaCard.vue";
+  import { mapGetters } from 'vuex'
   
   export default{
 		name: 'Popular',
@@ -25,84 +26,14 @@ section.popular
     },
     data() {
       return {
-        pizzas:[
-          {
-            id: 1,
-            name: 'Жюльен',
-            pic: 'pizza1.png',
-            ingr: " onionpotato, tomato, mushrooms, cheese, olives, meat",
-            price: 735,
-          },
-          {
-            id: 2,
-            name: 'Мексиканская',
-            pic: 'pizza2.png',
-            ingr: " onion, potato, tomato, mushrooms, cheese, olives, meat",
-            price: 735,
-          },
-          {
-            id: 3,
-            name: 'Мясная',
-            pic: 'pizza3.png',
-            ingr: " onion, potato, tomato, mushrooms, cheese, olives, meat",
-
-            price: 735,
-          },
-          {
-            id: 4,
-            name: 'Пепперони Cheese',
-            pic: 'pizza4.png',
-            ingr: " onion, potato, tomato, mushrooms, cheese, olives, meat",
-
-            price: 735,
-          },
-          {
-            id: 5,
-            name: 'Гавайская',
-            pic: 'pizza5.png',
-            ingr: " onion, potato, tomato, mushrooms, cheese, olives, meat",
-
-            price: 735,
-          },
-          {
-            id: 6,
-            name: 'Маргарита',
-            pic: 'pizza6.png',
-            ingr: " onion, potato, tomato, mushrooms, cheese, olives, meat",
-
-            price: 735,
-          },
-          {
-            id: 7,
-            name: '4 сыра',
-            pic: 'pizza7.png',
-            ingr: " onion, potato, tomato, mushrooms, cheese, olives, meat",
-
-            price: 735,
-          },
-          {
-            id: 8,
-            name: 'Тоскана',
-            pic: 'pizza8.png',
-            ingr: " onion, potato, tomato, mushrooms, cheese, olives, meat",
-
-            price: 735,
-          }
-        ],
       };
     },
     computed:  {
-      popular(){
-        return this.pizzas.slice(0, 4);
-      }
+      ...mapGetters('products', {
+        popular: 'getPopular',
+      })
     },
     methods: {
-    },
-    mounted() { 
-    },
-    created() {
-    },
-    destroyed() {
     },
   }
   </script>

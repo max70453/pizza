@@ -30,7 +30,8 @@ export default{
       debouncedHeight: 0,
       debouncedWidth: 0,
       heightTimeout: null,
-      widthTimeout: null
+      widthTimeout: null,
+      isBrowser: (typeof window !== "undefined"),
     };
   },
   computed:  {
@@ -64,14 +65,16 @@ export default{
     },
   },
   mounted() {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
+    this.height = this.isBrowser ? window.innerHeight : 0;
+    this.width = this.isBrowser ? window.innerWidth : 0;
   },
   created() {
-    window.addEventListener("resize", this.resizeHandler);
+    if(this.isBrowser)
+      window.addEventListener("resize", this.resizeHandler);
   },
   destroyed() {
-    window.removeEventListener("resize", this.resizeHandler);
+    if(this.isBrowser)
+      window.removeEventListener("resize", this.resizeHandler);
   },
 }
 </script>

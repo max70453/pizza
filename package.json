@@ -15,11 +15,13 @@
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "gridsome": "^0.7.23",
-    "gridsome-plugin-modal": "^0.1.1",
     "gridsome-plugin-seo": "^1.0.2",
     "swiper": "^6.0.2",
     "v-body-scroll-lock": "^1.1.3",
-    "vue-slick-carousel": "^1.0.6"
+    "vue-custom-scrollbar": "^1.4.4",
+    "vue-js-modal": "^2.0.1",
+    "vue-slick-carousel": "^1.0.6",
+    "vuex": "^3.0.0"
   },
   "devDependencies": {
     "gridsome-plugin-pug": "^0.0.3",

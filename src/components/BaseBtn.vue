@@ -42,6 +42,8 @@ export default {
   color: $color-text-accent
   font-family: "MullerMedium"
   text-align: center
+  border: none
+  cursor: pointer
   padding: 10px 
   border-radius: 700px 675px 700px 700px
   background: linear-gradient(215deg, #FF5924 0%, #FFA229 100%)
